@@ -7,6 +7,7 @@
 import { useState } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import MobileMenu from '@/components/layout/MobileMenu'
@@ -31,9 +32,17 @@ export default function Navbar() {
         <div className="container flex h-16 items-center justify-between gap-6">
           <Link
             href="/"
-            className="font-heading text-lg font-semibold tracking-tight text-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            aria-label="Vision Tech — home"
+            className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
-            Vision<span className="text-brand">Tech</span>
+            <Image
+              src="/images/logo.png"
+              alt="Vision Tech"
+              width={1408}
+              height={768}
+              priority
+              className="h-9 w-auto"
+            />
           </Link>
 
           <nav

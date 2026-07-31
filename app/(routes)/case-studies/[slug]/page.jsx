@@ -114,7 +114,7 @@ export default async function CaseStudyPage({ params }) {
           </div>
 
           {/* Result */}
-          <div className="mt-16 rounded-lg border border-brand/30 bg-white p-8 lg:p-10">
+          <div className="mt-16 rounded-lg border border-brand/30 bg-white p-8 shadow-soft lg:p-10">
             <span className="text-caption text-brand">The result</span>
             <h2 className="mt-3 text-2xl text-navy lg:text-3xl">
               What changed
@@ -138,7 +138,7 @@ export default async function CaseStudyPage({ params }) {
                 <div
                   key={src}
                   className={cn(
-                    'relative aspect-[4/3] overflow-hidden rounded-lg border border-navy/10 bg-white',
+                    'relative aspect-[4/3] overflow-hidden rounded-lg bg-white shadow-soft',
                     i === 0 && 'sm:col-span-2'
                   )}
                 >

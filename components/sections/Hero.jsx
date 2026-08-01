@@ -45,9 +45,6 @@ export default function Hero() {
               <Button href="/contact?intent=audit" magnetic>
                 Book a Free Audit
               </Button>
-              <Button href="/portfolio" variant="ghost">
-                View Our Work
-              </Button>
             </div>
           </StaggerItem>
         </StaggerGroup>

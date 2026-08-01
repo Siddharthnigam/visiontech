@@ -1,10 +1,20 @@
-// ScrollReveal — shared framer-motion reveal primitives. All animations
-// respect prefers-reduced-motion: when set, content renders fully visible
-// (no transform/opacity animation, instant state change).
 'use client'
 
+// ScrollReveal — shared framer-motion reveal primitives.
+//
+// KEY FIX: We use `initial={false}` on the server (SSR) so elements are
+// never rendered with opacity:0 in the HTML. After the client mounts, we
+// switch to `initial="hidden"` only for elements that haven't animated yet.
+// This prevents the "stuck invisible" bug where whileInView never fires for
+// elements that are already in the viewport on page load.
+//
+// All animations respect prefers-reduced-motion.
+
+import { useState, useEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { EASE, VIEWPORT } from '@/lib/utils'
+import { EASE } from '@/lib/utils'
+
+const VIEWPORT = { once: true, amount: 0 }
 
 function revealVariants(reduce, y, delay) {
   if (reduce)
@@ -14,7 +24,7 @@ function revealVariants(reduce, y, delay) {
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: EASE, delay },
+      transition: { duration: 0.6, ease: EASE, delay },
     },
   }
 }
@@ -24,17 +34,22 @@ export default function ScrollReveal({
   children,
   className,
   delay = 0,
-  y = 28,
-  amount = VIEWPORT.amount,
+  y = 20,
+  amount,
   ...props
 }) {
   const reduce = useReducedMotion()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
   return (
     <motion.div
       className={className}
-      initial="hidden"
+      // Before mount: render fully visible (no animation)
+      // After mount: animate from hidden on scroll
+      initial={mounted ? 'hidden' : false}
       whileInView="show"
-      viewport={{ once: true, amount }}
+      viewport={{ ...VIEWPORT, amount: amount ?? 0 }}
       variants={revealVariants(reduce, y, delay)}
       {...props}
     >
@@ -48,18 +63,21 @@ export function StaggerGroup({
   as = 'div',
   children,
   className,
-  stagger = 0.09,
-  amount = VIEWPORT.amount,
+  stagger = 0.08,
+  amount,
   ...props
 }) {
   const reduce = useReducedMotion()
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
   const MotionTag = motion[as]
   return (
     <MotionTag
       className={className}
-      initial="hidden"
+      initial={mounted ? 'hidden' : false}
       whileInView="show"
-      viewport={{ once: true, amount }}
+      viewport={{ ...VIEWPORT, amount: amount ?? 0 }}
       variants={{
         hidden: {},
         show: { transition: { staggerChildren: reduce ? 0 : stagger } },
@@ -76,7 +94,7 @@ export function StaggerItem({
   as = 'div',
   children,
   className,
-  y = 28,
+  y = 20,
   ...props
 }) {
   const reduce = useReducedMotion()

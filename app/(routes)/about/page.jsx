@@ -34,7 +34,7 @@ export default function AboutPage() {
       {/* Origin — editorial narrative with a pull quote. */}
       <section className="bg-offwhite py-20 lg:py-28">
         <div className="container">
-          {/* Stats — placeholder metrics: TODO replace with real numbers. */}
+          {/* Stats */}
           <StaggerGroup className="mb-16 grid gap-8 border-y border-navy/10 py-10 sm:grid-cols-3">
             {ABOUT_STATS.map((stat) => (
               <StaggerItem key={stat.id}>
@@ -53,7 +53,7 @@ export default function AboutPage() {
               <SectionHeading
                 eyebrow="Why we exist"
                 title="The gap we saw."
-                description="Most growing businesses don’t need five vendors — they need one team that owns the outcome."
+                description="Most growing businesses don't need five vendors — they need one team that owns the outcome."
               />
             </div>
 
@@ -62,12 +62,12 @@ export default function AboutPage() {
                 The common setup is a web developer here, a social freelancer
                 there, and an ad agency somewhere else. Each one does its job
                 well, but nobody owns the outcome — so strategy, message, and
-                measurement drift apart the moment they’re handed off.
+                measurement drift apart the moment they're handed off.
               </StaggerItem>
               <StaggerItem as="p">
                 When the website is built by people who never talk to the team
-                running the ads, and the social feed never echoes the site’s
-                message, you end up paying for marketing that doesn’t compound.
+                running the ads, and the social feed never echoes the site's
+                message, you end up paying for marketing that doesn't compound.
                 Every channel is optimized in isolation, and the revenue effect
                 gets lost.
               </StaggerItem>
@@ -80,8 +80,8 @@ export default function AboutPage() {
               <StaggerItem as="blockquote" className="mt-12 lg:mt-16">
                 <span className="accent-rule" aria-hidden="true" />
                 <p className="mt-6 max-w-xl font-heading text-2xl font-semibold leading-snug text-navy lg:text-3xl">
-                  “The whole point of digital is that it compounds. Ours does
-                  too — because it’s one system, not four.”
+                  "The whole point of digital is that it compounds. Ours does
+                  too — because it's one system, not four."
                 </p>
               </StaggerItem>
             </StaggerGroup>
@@ -89,15 +89,19 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Principles — numbered editorial list matching the Services pattern. */}
+      {/* Principles — two columns on desktop. Items 1,3 left. Items 2,4 right.
+          Same Y position — CSS grid rows align them automatically. Zero gap. */}
       <section className="bg-ice py-20 lg:py-28">
         <div className="container">
           <SectionHeading
-            eyebrow="How we’re different"
+            eyebrow="How we're different"
             title="Principles we build on."
             description="Not values on a poster — the operating rules behind every engagement."
           />
-          <StaggerGroup as="ol" className="mt-16 border-t border-navy/10">
+          <StaggerGroup
+            as="ol"
+            className="mt-16 lg:grid lg:grid-cols-2 lg:gap-x-0 lg:gap-y-0 border-t border-navy/10"
+          >
             {PRINCIPLES.map((principle, i) => {
               const odd = i % 2 === 1
               return (
@@ -105,11 +109,15 @@ export default function AboutPage() {
                   as="li"
                   key={principle.id}
                   className={cn(
-                    'border-b border-navy/10 py-12 lg:py-14',
-                    odd && 'lg:pl-[10%]'
+                    // Mobile: full width stacked list
+                    'border-b border-navy/10 py-12',
+                    // Desktop: left or right column, no extra padding, no y gap
+                    odd
+                      ? 'lg:col-start-2 lg:border-l lg:border-navy/10 lg:pl-10 lg:py-12'
+                      : 'lg:col-start-1 lg:pr-10 lg:py-12'
                   )}
                 >
-                  <div className="grid gap-4 lg:grid-cols-[auto_1fr] lg:gap-12">
+                  <div className="grid gap-4 lg:grid-cols-[auto_1fr] lg:gap-8">
                     <span className="text-caption text-brand">0{i + 1}</span>
                     <div>
                       <h3 className="text-2xl text-navy lg:text-3xl">
@@ -127,14 +135,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team — placeholder grid. Swap TEAM data in constants for the real
-          team before launch. */}
+      {/* Team */}
       <section className="bg-offwhite py-20 lg:py-28">
         <div className="container">
           <SectionHeading
             eyebrow="The team"
             title="The people behind the work."
-            description="A small senior team with one owner per engagement — so there’s always someone accountable for the outcome."
+            description="A small senior team with one owner per engagement — so there's always someone accountable for the outcome."
           />
           <TeamGrid />
         </div>

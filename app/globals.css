@@ -140,8 +140,46 @@
     }
   }
 
+  /* ── Shared marquee keyframes ─────────────────────────────────────────── */
+  /* Track = 3× items. Animate exactly 1 copy (-33.333%) so last card
+     connects seamlessly back to first — zero visible jump. */
+
+  @keyframes marquee-scroll-forward {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-33.3334%); }
+  }
+
+  @keyframes marquee-scroll-reverse {
+    from { transform: translateX(-33.3334%); }
+    to   { transform: translateX(0); }
+  }
+
+  /* Tech stack marquee (small items, faster) */
+  .marquee-forward {
+    animation: marquee-scroll-forward 36s linear infinite;
+    will-change: transform;
+  }
+  .marquee-reverse {
+    animation: marquee-scroll-reverse 28s linear infinite;
+    will-change: transform;
+  }
+
+  /* Testimonial marquee (wide cards, slightly faster) */
+  .testimonial-forward {
+    animation: marquee-scroll-forward 32s linear infinite;
+    will-change: transform;
+  }
+  .testimonial-reverse {
+    animation: marquee-scroll-reverse 32s linear infinite;
+    will-change: transform;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .accent-rule {
+    .accent-rule,
+    .marquee-forward,
+    .marquee-reverse,
+    .testimonial-forward,
+    .testimonial-reverse {
       animation: none;
     }
 

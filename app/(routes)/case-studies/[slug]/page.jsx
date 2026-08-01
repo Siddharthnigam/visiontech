@@ -40,11 +40,11 @@ export default async function CaseStudyPage({ params }) {
       <section className="noise-overlay relative overflow-hidden bg-navy text-offwhite">
         <div className="container py-16 lg:py-24">
           <Link
-            href="/portfolio"
+            href="/services"
             className="inline-flex items-center gap-2 text-small font-semibold text-ice/80 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-            All work
+            Our Services
           </Link>
 
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">

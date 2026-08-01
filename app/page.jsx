@@ -1,11 +1,13 @@
 import Hero from '@/components/sections/Hero'
+import TechMarquee from '@/components/sections/TechMarquee'
 import Services from '@/components/sections/Services'
+import WhyChooseUs from '@/components/sections/WhyChooseUs'
 import ProcessWorkflow from '@/components/sections/ProcessWorkflow'
-import PricingMatrix from '@/components/sections/PricingMatrix'
+import Testimonials from '@/components/sections/Testimonials'
+import Faq from '@/components/sections/Faq'
+import CtaBand from '@/components/sections/CtaBand'
 import { SITE_URL } from '@/lib/constants'
 
-// Homepage — assembles the landing sections. CaseStudies, TrustSignals,
-// and LeadCapture ship in their own dedicated tasks.
 export const metadata = {
   title: 'Vision Tech — Web, Social & Performance Marketing Agency',
   description:
@@ -22,10 +24,29 @@ export const metadata = {
 export default function Home() {
   return (
     <main>
+      {/* 1 — Hero */}
       <Hero />
+
+      {/* 2 — Tech stack marquee */}
+      <TechMarquee />
+
+      {/* 3 — What we do */}
       <Services />
+
+      {/* 4 — Why choose us */}
+      <WhyChooseUs />
+
+      {/* 5 — How we work */}
       <ProcessWorkflow />
-      <PricingMatrix />
+
+      {/* 6 — Client testimonials */}
+      <Testimonials />
+
+      {/* 7 — FAQ */}
+      <Faq />
+
+      {/* 8 — Bottom CTA */}
+      <CtaBand />
     </main>
   )
 }

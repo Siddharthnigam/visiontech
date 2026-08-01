@@ -46,7 +46,7 @@ export default function PricingMatrix() {
 }
 
 // TierCard — one service card. The highlighted tier gets a subtle
-// "Recommended" badge and a stronger border/shadow instead of a color swap.
+// "Most Popular" badge and a stronger border/shadow instead of a color swap.
 function TierCard({ tier }) {
   return (
     <article
@@ -59,12 +59,19 @@ function TierCard({ tier }) {
     >
       {tier.highlighted && (
         <span className="absolute -top-3 left-6 rounded-full bg-brand px-3 py-1 text-caption text-white">
-          Recommended
+          Most Popular
         </span>
       )}
 
       <h3 className="text-xl text-navy">{tier.name}</h3>
-      <p className="mt-2 text-small leading-relaxed text-navy/60">
+
+      {tier.tagline && (
+        <p className="mt-1.5 text-small font-medium italic text-brand/80">
+          {tier.tagline}
+        </p>
+      )}
+
+      <p className="mt-3 text-small leading-relaxed text-navy/60">
         {tier.description}
       </p>
 
@@ -90,7 +97,7 @@ function TierCard({ tier }) {
         variant={tier.highlighted ? 'primary' : 'outline'}
         className="mt-8 w-full"
       >
-        Request a quote
+        Get Started
       </Button>
     </article>
   )
@@ -100,6 +107,7 @@ TierCard.propTypes = {
   tier: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    tagline: PropTypes.string,
     description: PropTypes.string.isRequired,
     features: PropTypes.arrayOf(PropTypes.string).isRequired,
     highlighted: PropTypes.bool.isRequired,

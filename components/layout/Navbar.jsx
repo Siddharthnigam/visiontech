@@ -1,13 +1,8 @@
 'use client'
 
-// Site navigation — sticky header, always solid off-white with dark links so
-// nav items are legible from the first paint (no transparent state over the
-// hero). Carries a slim brand scroll-progress bar along its bottom edge and
-// swaps in the full-screen MobileMenu on small screens.
+// Site navigation — sticky header, always solid off-white with dark links.
 import { useState } from 'react'
-import { motion, useScroll, useSpring } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import MobileMenu from '@/components/layout/MobileMenu'
@@ -19,13 +14,6 @@ const linkClass =
 export default function Navbar() {
   const [open, setOpen] = useState(false)
 
-  const { scrollYProgress } = useScroll()
-  const progress = useSpring(scrollYProgress, {
-    stiffness: 200,
-    damping: 30,
-    mass: 0.4,
-  })
-
   return (
     <header className="sticky top-0 z-50">
       <div className="bg-offwhite/90 shadow-soft backdrop-blur-md">
@@ -35,14 +23,10 @@ export default function Navbar() {
             aria-label="Vision Tech — home"
             className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
-            <Image
-              src="/images/logo.png"
-              alt="Vision Tech"
-              width={1408}
-              height={768}
-              priority
-              className="h-9 w-auto"
-            />
+            <span className="font-heading text-xl font-semibold tracking-tight">
+              <span className="text-brand">Vision</span>
+              <span className="text-navy">Tech</span>
+            </span>
           </Link>
 
           <nav
@@ -76,13 +60,6 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-
-        {/* Slim scroll-progress bar */}
-        <motion.div
-          aria-hidden="true"
-          className="h-0.5 origin-left bg-brand"
-          style={{ scaleX: progress }}
-        />
       </div>
 
       <MobileMenu open={open} onClose={() => setOpen(false)} />

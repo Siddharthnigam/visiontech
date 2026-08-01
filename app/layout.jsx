@@ -2,6 +2,7 @@ import { Space_Grotesk, Source_Sans_3 } from 'next/font/google'
 import { MotionConfig } from 'framer-motion'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
+import ScrollWidget from '@/components/layout/ScrollWidget'
 import { SITE_URL } from '@/lib/constants'
 import './globals.css'
 
@@ -46,6 +47,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
           <Footer />
+          <ScrollWidget />
         </MotionConfig>
       </body>
     </html>

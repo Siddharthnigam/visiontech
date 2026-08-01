@@ -189,7 +189,7 @@ export default async function ServiceDetailPage({ params }) {
       {/* ── 7. Other services — smaller compact cards ── */}
       <section className="bg-navy py-12 lg:py-16">
         <div className="container">
-          <div className="flex items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
             <div>
               <span className="text-caption text-ice/40">More from Vision Tech</span>
               <h3 className="mt-2 font-heading text-xl font-semibold text-offwhite lg:text-2xl">
@@ -204,19 +204,19 @@ export default async function ServiceDetailPage({ params }) {
             </Link>
           </div>
 
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {others.map((other) => (
               <Link
                 key={other.id}
                 href={`/services/${other.id}`}
-                className="group flex items-center justify-between gap-4 rounded-xl border border-white/8 bg-white/5 px-5 py-4 transition-all hover:border-brand/40 hover:bg-white/8"
+                className="group flex items-center justify-between gap-3 rounded-xl border border-white/[0.08] bg-white/[0.05] px-4 py-4 transition-all hover:border-brand/40 hover:bg-white/[0.08]"
               >
                 <div className="min-w-0">
                   <span className="text-caption text-brand">0{SERVICES.indexOf(other) + 1}</span>
-                  <p className="mt-0.5 font-heading text-base font-semibold text-offwhite group-hover:text-brand">
+                  <p className="mt-0.5 max-w-full truncate font-heading text-base font-semibold text-offwhite group-hover:text-brand">
                     {other.title}
                   </p>
-                  <p className="mt-1 truncate text-small text-ice/45">
+                  <p className="mt-1 max-w-full truncate text-small text-ice/45">
                     {other.tagline}
                   </p>
                 </div>

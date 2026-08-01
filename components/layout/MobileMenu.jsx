@@ -105,7 +105,7 @@ export default function MobileMenu({ open, onClose }) {
             </button>
           </motion.div>
 
-          <nav
+          <motion.nav
             aria-label="Mobile"
             variants={containerVariants(reduce)}
             className="container flex flex-1 flex-col justify-center py-8"
@@ -125,7 +125,7 @@ export default function MobileMenu({ open, onClose }) {
                 </Link>
               </motion.div>
             ))}
-          </nav>
+          </motion.nav>
 
           <motion.div
             variants={itemVariants(reduce)}

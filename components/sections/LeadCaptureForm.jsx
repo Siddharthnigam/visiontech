@@ -1,7 +1,7 @@
 'use client'
 
 // Lead capture form — react-hook-form validated against the shared Zod
-// schema (lib/validations.js), POSTing to /api/lead-capture.
+// schema (lib/validations.js), delivered to your inbox via EmailJS.
 //
 // - Reads ?intent=audit (Hero CTA) to frame the intro copy around the free
 //   audit, and ?service= (Services CTAs) to pre-select a service.
@@ -12,6 +12,7 @@ import { Suspense, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
+import emailjs from '@emailjs/browser'
 import { CheckCircle2, ChevronDown, Loader2, RotateCcw } from 'lucide-react'
 import {
   BUDGET_RANGES,
@@ -89,22 +90,28 @@ function LeadCaptureFormInner() {
     setServerError(null)
 
     try {
-      const response = await fetch('/api/lead-capture', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
-      })
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}))
-        throw new Error(data?.error || 'The request failed. Please try again.')
-      }
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        {
+          name: values.name,
+          email: values.email,
+          serviceRequired:
+            SERVICE_LABELS[values.serviceRequired] || values.serviceRequired,
+          budgetRange:
+            BUDGET_RANGE_LABELS[values.budgetRange] || values.budgetRange,
+          websiteUrl: values.websiteUrl,
+          message: values.message,
+        },
+        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }
+      )
 
       setSubmittedName(values.name)
       setStatus('success')
     } catch (error) {
+      console.error('EmailJS error:', error)
       setServerError(
-        error?.message || 'Something went wrong. Please try again.'
+        error?.text || error?.message || 'Something went wrong. Please try again.'
       )
       setStatus('error')
     }

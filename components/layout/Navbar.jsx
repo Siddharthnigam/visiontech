@@ -3,6 +3,7 @@
 // Site navigation — sticky header, always solid off-white with dark links.
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import MobileMenu from '@/components/layout/MobileMenu'
@@ -23,10 +24,14 @@ export default function Navbar() {
             aria-label="Vision Tech — home"
             className="shrink-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
           >
-            <span className="font-heading text-xl font-semibold tracking-tight">
-              <span className="text-brand">Vision</span>
-              <span className="text-navy">Tech</span>
-            </span>
+            <Image
+              src="/images/logo.png"
+              alt="Vision Tech — home"
+              width={784}
+              height={234}
+              priority
+              className="h-9 w-auto"
+            />
           </Link>
 
           <nav

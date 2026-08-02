@@ -6,6 +6,7 @@
 import { useEffect, useRef } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight, X } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { NAV_LINKS } from '@/lib/constants'
@@ -92,9 +93,13 @@ export default function MobileMenu({ open, onClose }) {
             variants={itemVariants(reduce)}
             className="container flex h-16 items-center justify-between"
           >
-            <span className="font-heading text-lg font-semibold tracking-tight text-offwhite">
-              Vision<span className="text-brand">Tech</span>
-            </span>
+            <Image
+              src="/images/logo.png"
+              alt="Vision Tech"
+              width={784}
+              height={234}
+              className="h-9 w-auto"
+            />
             <button
               type="button"
               onClick={onClose}

@@ -3,6 +3,8 @@ import { MotionConfig } from 'framer-motion'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import ScrollWidget from '@/components/layout/ScrollWidget'
+import WhatsAppButton from '@/components/layout/WhatsAppButton'
+import Chatbot from '@/components/chat/Chatbot'
 import { SITE_URL } from '@/lib/constants'
 import './globals.css'
 
@@ -48,6 +50,8 @@ export default function RootLayout({ children }) {
           {children}
           <Footer />
           <ScrollWidget />
+          <WhatsAppButton />
+          <Chatbot />
         </MotionConfig>
       </body>
     </html>

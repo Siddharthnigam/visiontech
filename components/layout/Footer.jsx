@@ -2,14 +2,20 @@
 // services, and social handles. Rendered once in the root layout.
 import { Instagram, Linkedin, Twitter } from 'lucide-react'
 import Link from 'next/link'
-import { NAV_LINKS, SERVICES } from '@/lib/constants'
+import {
+  NAV_LINKS,
+  SERVICES,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_LINK,
+} from '@/lib/constants'
+import { WhatsAppIcon } from '@/components/layout/WhatsAppButton'
 
 // Sample contact details — swap in the live handles before launch.
-const CONTACT_EMAIL = 'hello@visiontech.agency'
+const CONTACT_EMAIL = 'visionindtech@gmail.com'
 const SOCIALS = [
   {
     label: 'Instagram',
-    href: 'https://instagram.com/visiontech.agency',
+    href: 'https://instagram.com/visiontech.io',
     Icon: Instagram,
   },
   {
@@ -46,9 +52,21 @@ export default function Footer() {
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}
-            className={`mt-6 inline-block font-semibold ${linkClass}`}
+            className={`mt-6 block font-semibold ${linkClass}`}
           >
             {CONTACT_EMAIL}
+          </a>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className={`mt-2 flex items-center gap-2 font-semibold ${linkClass}`}
+          >
+            <WhatsAppIcon
+              className="h-4 w-4 shrink-0 text-[#25D366]"
+              aria-hidden="true"
+            />
+            {WHATSAPP_DISPLAY}
           </a>
         </div>
 

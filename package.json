@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@emailjs/nodejs": "^5.0.2",
     "@hookform/resolvers": "^5.5.7",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.0",
@@ -21,6 +22,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-hook-form": "^7.53.0",
+    "resend": "^6.18.1",
     "tailwind-merge": "^2.5.3",
     "zod": "^3.23.8"
   },

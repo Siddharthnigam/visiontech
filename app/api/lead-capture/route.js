@@ -1,5 +1,15 @@
 import { NextResponse } from 'next/server'
 import { leadCaptureSchema } from '@/lib/validations'
+import {
+  SERVICE_LABELS,
+  BUDGET_RANGE_LABELS,
+} from '@/lib/validations'
+import emailjs from '@emailjs/nodejs'
+
+const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
+const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+const PRIVATE_KEY = process.env.EMAILJS_PRIVATE_KEY
 
 export async function POST(request) {
   let body
@@ -29,14 +39,31 @@ export async function POST(request) {
     )
   }
 
+  const { name, email, serviceRequired, budgetRange, websiteUrl, message } =
+    result.data
+
   try {
-    // TODO: connect to CRM/email service (e.g., Resend, HubSpot)
-    // Store/send the lead here: result.data.name, .email, .budgetRange,
-    // .serviceRequired, .websiteUrl, .message
+    // Inbox notification to your Gmail (template_53yyfjj).
+    await emailjs.send(
+      SERVICE_ID,
+      TEMPLATE_ID,
+      {
+        from_name: name,
+        from_email: email,
+        service_needed: SERVICE_LABELS[serviceRequired] || serviceRequired,
+        budget_range: BUDGET_RANGE_LABELS[budgetRange] || budgetRange,
+        website_url: websiteUrl,
+        message: message || '',
+      },
+      { publicKey: PUBLIC_KEY, privateKey: PRIVATE_KEY }
+    )
   } catch (error) {
     console.error('Failed to capture lead:', error)
     return NextResponse.json(
-      { error: 'Something went wrong on our end' },
+      {
+        error: 'Something went wrong on our end',
+        detail: error?.text || error?.message || String(error),
+      },
       { status: 500 }
     )
   }

@@ -9,7 +9,8 @@ import { ArrowUpRight, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
-import { NAV_LINKS } from '@/lib/constants'
+import { NAV_LINKS, WHATSAPP_DISPLAY, WHATSAPP_LINK } from '@/lib/constants'
+import { WhatsAppIcon } from '@/components/layout/WhatsAppButton'
 import { EASE } from '@/lib/utils'
 
 function containerVariants(reduce) {
@@ -140,8 +141,21 @@ export default function MobileMenu({ open, onClose }) {
               Book a free audit
             </Button>
             <p className="mt-4 text-center text-small text-ice/60">
-              hello@visiontech.agency
+              visionindtech@gmail.com
             </p>
+            <a
+              href={WHATSAPP_LINK}
+              target="_blank"
+              rel="noreferrer"
+              onClick={onClose}
+              className="mx-auto mt-2 flex w-fit items-center gap-2 text-small text-ice/60 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+            >
+              <WhatsAppIcon
+                className="h-4 w-4 text-[#25D366]"
+                aria-hidden="true"
+              />
+              {WHATSAPP_DISPLAY}
+            </a>
           </motion.div>
         </motion.div>
       )}

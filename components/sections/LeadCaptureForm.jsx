@@ -12,7 +12,6 @@ import { Suspense, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useSearchParams } from 'next/navigation'
-import emailjs from '@emailjs/browser'
 import { CheckCircle2, ChevronDown, Loader2, RotateCcw } from 'lucide-react'
 import {
   BUDGET_RANGES,
@@ -24,6 +23,8 @@ import {
 import { cn } from '@/lib/utils'
 import ScrollReveal from '@/components/shared/ScrollReveal'
 import Button from '@/components/ui/Button'
+import { WHATSAPP_DISPLAY, WHATSAPP_LINK } from '@/lib/constants'
+import { WhatsAppIcon } from '@/components/layout/WhatsAppButton'
 
 const inputBase =
   'w-full rounded-md border bg-white px-4 py-3 text-base text-navy transition-colors placeholder:text-navy/40 focus:outline-none focus:ring-2 focus:ring-brand disabled:opacity-60'
@@ -90,28 +91,23 @@ function LeadCaptureFormInner() {
     setServerError(null)
 
     try {
-      await emailjs.send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        {
-          name: values.name,
-          email: values.email,
-          serviceRequired:
-            SERVICE_LABELS[values.serviceRequired] || values.serviceRequired,
-          budgetRange:
-            BUDGET_RANGE_LABELS[values.budgetRange] || values.budgetRange,
-          websiteUrl: values.websiteUrl,
-          message: values.message,
-        },
-        { publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }
-      )
+      const response = await fetch('/api/lead-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      })
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || 'Something went wrong. Please try again.')
+      }
 
       setSubmittedName(values.name)
       setStatus('success')
     } catch (error) {
-      console.error('EmailJS error:', error)
+      console.error('Lead capture error:', error)
       setServerError(
-        error?.text || error?.message || 'Something went wrong. Please try again.'
+        error?.message || 'Something went wrong. Please try again.'
       )
       setStatus('error')
     }
@@ -158,6 +154,23 @@ function LeadCaptureFormInner() {
               </li>
             ))}
           </ul>
+          <a
+            href={WHATSAPP_LINK}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-8 inline-flex items-center gap-3 rounded-md border border-navy/15 bg-white px-5 py-3.5 font-semibold text-navy shadow-soft transition-colors hover:border-[#25D366] hover:text-[#1eb85a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+          >
+            <WhatsAppIcon
+              className="h-5 w-5 text-[#25D366]"
+              aria-hidden="true"
+            />
+            <span>
+              Prefer WhatsApp?{' '}
+              <span className="block text-small font-normal text-navy/60">
+                Chat with us at {WHATSAPP_DISPLAY}
+              </span>
+            </span>
+          </a>
         </div>
 
         {/* Form column */}
@@ -422,6 +435,15 @@ function SuccessPanel({ name, onReset }) {
         Your enquiry is on its way. We’ll get back to you within one business
         day with next steps.
       </p>
+      <a
+        href={WHATSAPP_LINK}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-6 inline-flex items-center gap-2 rounded-md bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white shadow-soft transition-colors hover:bg-[#1eb85a] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      >
+        <WhatsAppIcon className="h-4 w-4" aria-hidden="true" />
+        Need a faster reply? Chat with us
+      </a>
       <Button
         as="button"
         type="button"

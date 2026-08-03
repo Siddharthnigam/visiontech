@@ -32,7 +32,7 @@ export default function Chatbot() {
         initial={reduce ? { opacity: 1 } : { opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
-        className="group fixed bottom-5 left-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-navy text-white shadow-elevated transition-colors hover:bg-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:bottom-6 md:left-6"
+        className="group fixed bottom-5 left-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-black text-white shadow-elevated transition-colors hover:bg-brand focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:bottom-6 md:left-6"
       >
         {/* Pulse ring */}
         <span
